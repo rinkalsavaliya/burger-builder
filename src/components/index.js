@@ -7,6 +7,7 @@ import Button from './UI/Button/Button';
 import OrderSummary from './Burger/OrderSummary/OrderSummary';
 import Toolbar from './Navigation/Toolbar/Toolbar';
 import SideDrawer from './Navigation/SideDrawer/SideDrawer';
+import Loader from './UI/Loader/Loader';
 
 export {
   Burger,
@@ -17,5 +18,6 @@ export {
   OrderSummary,
   Button,
   Toolbar,
-  SideDrawer
+  SideDrawer,
+  Loader
 };

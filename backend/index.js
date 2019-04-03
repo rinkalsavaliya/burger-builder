@@ -8,7 +8,9 @@ const cors = require('cors');
 const compression = require('compression');
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use(cors());
 
@@ -19,8 +21,21 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/v1', (req, res) => {
-  res.send({ isError: false });
+app.get('/api/v1/ingredients', (req, res) => {
+  setTimeout(() => {
+    res.send({
+      isError: false,
+      data: {
+        ingredients: [
+          { label: 'Salad', type: 'salad', price: 0.5 },
+          { label: 'Bacon', type: 'bacon', price: 0.7 },
+          { label: 'Cheese', type: 'cheese', price: 0.4 },
+          { label: 'Meat', type: 'meat', price: 1.3 },
+        ],
+        basicPrice: 4
+      }
+    });
+  }, 2000);
 });
 
 app.use(compression());
