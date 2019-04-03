@@ -4,6 +4,7 @@ import BuildControl from './Burger/BuildControls/BuildControl/BuildControl';
 import BuildControls from './Burger/BuildControls/BuildControls';
 import Modal from './UI/Modal/Modal';
 import Backdrop from './UI/Backdrop/Backdrop';
+import Button from './UI/Button/Button';
 import OrderSummary from './Burger/OrderSummary/OrderSummary';
 
 export {
@@ -13,5 +14,6 @@ export {
   BuildControls,
   Modal,
   Backdrop,
-  OrderSummary
+  OrderSummary,
+  Button
 };
