@@ -1,4 +1,3 @@
-import Layout from './Layout/Layout';
 import Burger from './Burger/Burger';
 import BuildControl from './Burger/BuildControls/BuildControl/BuildControl';
 import BuildControls from './Burger/BuildControls/BuildControls';
@@ -6,14 +5,17 @@ import Modal from './UI/Modal/Modal';
 import Backdrop from './UI/Backdrop/Backdrop';
 import Button from './UI/Button/Button';
 import OrderSummary from './Burger/OrderSummary/OrderSummary';
+import Toolbar from './Navigation/Toolbar/Toolbar';
+import SideDrawer from './Navigation/SideDrawer/SideDrawer';
 
 export {
-  Layout,
   Burger,
   BuildControl,
   BuildControls,
   Modal,
   Backdrop,
   OrderSummary,
-  Button
+  Button,
+  Toolbar,
+  SideDrawer
 };

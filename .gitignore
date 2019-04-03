@@ -21,3 +21,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+Backups
+Cache
+CachedData
+CachedExtensions
+GPUCache
+logs
+User
+Workspaces
+Cookies**
+languagepacks.json
+machineid
+storage.json
