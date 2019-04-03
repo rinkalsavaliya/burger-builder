@@ -34,3 +34,6 @@ Cookies**
 languagepacks.json
 machineid
 storage.json
+blob_storage
+webrtc_event_logs
+Network Persistent State
