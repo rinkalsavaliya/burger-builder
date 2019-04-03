@@ -36,7 +36,7 @@ app.get('/api/v1/ingredients', (req, res) => {
         basicPrice: 4
       }
     });
-  }, 2000);
+  }, 1);
 });
 
 app.use(compression());

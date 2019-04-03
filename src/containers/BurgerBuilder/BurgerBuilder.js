@@ -74,6 +74,18 @@ class BurgerBuilder extends React.Component {
         !this.state.success ?
           <p style={{textAlign: 'center'}}>Something Went Wrong</p> :
           <Aux>
+          <div className="bugger-wrapper">
+            <Burger ingredients={this.state.ingredients}/>
+            <BuildControls
+              ingredientTypes={this.state.ingredientTypes}
+              purchase={() => this.purchaseHandler(true)}
+              purchasable={!this.state.purchasable}
+              price={this.state.totalPrice}
+              disable={disableInfo}
+              addIngredient={this.addIngredientHandler}
+              removeIngredient={this.removeIngredientHandler}
+            />
+            </div>
             <Modal
               show={this.state.purchasing}
               closeModal={() => this.purchaseHandler(false)}>
@@ -84,18 +96,6 @@ class BurgerBuilder extends React.Component {
                   totalPrice={this.state.totalPrice}>
                 </OrderSummary>
             </Modal>
-
-            <Burger ingredients={this.state.ingredients}/>
-
-            <BuildControls
-              ingredientTypes={this.state.ingredientTypes}
-              purchase={() => this.purchaseHandler(true)}
-              purchasable={!this.state.purchasable}
-              price={this.state.totalPrice}
-              disable={disableInfo}
-              addIngredient={this.addIngredientHandler}
-              removeIngredient={this.removeIngredientHandler}
-            />
           </Aux>
     );
   }
