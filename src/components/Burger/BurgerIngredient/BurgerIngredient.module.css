@@ -114,7 +114,7 @@
 .Onion {
   width: 90%;
   height: 10px;
-  background: linear-gradient(#ff66ff, #cc00cc);
+  background: linear-gradient(#ede2d4, #cc00cc);
   margin: 10px auto;
   border-radius: 20px;
 }

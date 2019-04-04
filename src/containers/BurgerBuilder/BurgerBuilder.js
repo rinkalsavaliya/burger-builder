@@ -73,7 +73,7 @@ class BurgerBuilder extends React.Component {
         !this.state.success ?
           <p style={{textAlign: 'center'}}>Something Went Wrong</p> :
           <Aux>
-          <div className="bugger-wrapper">
+          <div className='burger-wrapper'>
             <Burger ingredients={this.state.ingredients}/>
             <BuildControls
               ingredientTypes={this.state.ingredientTypes}
