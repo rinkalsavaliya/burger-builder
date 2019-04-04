@@ -104,6 +104,7 @@ class BurgerBuilder extends React.Component {
     }
   }
   render() {
+    console.log(this.props, 'props');
     const disableInfo = {...this.state.ingredients};
     return (
       this.state.loading ? <Loader/> :

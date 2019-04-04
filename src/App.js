@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { BurgerBuilder, Checkout } from './containers';
-import { Layout } from './hoc';
+import { Layout, asyncComponent } from './hoc';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
+const AsyncBurgerBuilder = asyncComponent(() => import('./containers/BurgerBuilder/BurgerBuilder'));
+const AsyncCheckout = asyncComponent(() => import('./containers/Checkout/Checkout'));
 
 class App extends Component {
   render() {
@@ -11,8 +12,9 @@ class App extends Component {
         <div>
           <Layout>
             <Switch>
-              <Route exact path='/' component={BurgerBuilder}/>
-              <Route exact path='/checkout' component={Checkout}/>
+              <Route exact path='/' component={AsyncBurgerBuilder}/>
+              <Route exact path='/checkout' component={AsyncCheckout}/>
+              <Route render={() => <h1 style={{textAlign:'center'}}>404 NOT FOUND</h1>}/>
             </Switch>
           </Layout>
         </div>
