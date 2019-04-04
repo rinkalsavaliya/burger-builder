@@ -37,7 +37,8 @@ app.get('/api/v1/ingredients', (req, res) => {
         basicPrice: 4
       }
     });
-  }, 1);
+    // res.status(500).send('errorrr');
+  }, 1000);
 });
 
 app.use(compression());
