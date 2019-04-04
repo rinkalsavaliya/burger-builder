@@ -3,6 +3,7 @@ import { Aux } from '../../hoc';
 import { Burger, BuildControls, Modal, OrderSummary, Loader } from '../../components';
 import axioBurger from '../../axios-orders';
 import { withErrorHandler } from '../../hoc';
+import { withRouter } from 'react-router-dom';
 
 class BurgerBuilder extends React.Component {
   state = {
@@ -17,12 +18,6 @@ class BurgerBuilder extends React.Component {
     success: false,
     ordering: false
   };
-  // call after addIngredient/removeIngredient (optional)
-  updatePurchaseState = () => {
-    const ingredients = {...this.state.ingredients};
-    const sum = Object.keys(ingredients).map(igKey => ingredients[igKey]).reduce((ig1, ig2) => ig1 + ig2);
-    this.setState({ purchasable: sum > 0 });
-  }
   addIngredientHandler = (type) => {
     const state = {...this.state};
     state.ingredients[type] += 1;
@@ -73,6 +68,19 @@ class BurgerBuilder extends React.Component {
   componentDidMount = async () => {
     try {
       const ingredientsData = await axioBurger('/ingredients.json');
+      /*
+      * sample response :
+      *  {
+      *   "data": {
+      *     "basicPrice": 4,
+      *  		"ingredients": [
+      *       { "label": "Onion", "price": 0.2, "type": "onion" }, { "label": "Salad", "price": 0.5, "type": "salad" },
+      *       { "label": "Tomato", "price": 0.8, "type": "tomato" }, { "label": "Cheese", "price": 0.4, "type": "cheese" },
+      *       { "label": "Bacon", "price": 0.7, "type": "bacon" }, { "label": "Meat", "price": 1.3, "type": "meat" }
+      *     ]
+      *    }
+      *  }
+      */
       if (ingredientsData && ingredientsData.data && ingredientsData.data.data) {
         const ingredients = {};
         const ingredientTypes = [];
@@ -132,4 +140,4 @@ class BurgerBuilder extends React.Component {
   }
 }
 
-export default withErrorHandler(BurgerBuilder, axioBurger);
+export default withRouter(withErrorHandler(BurgerBuilder, axioBurger));
