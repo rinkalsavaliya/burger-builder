@@ -1,8 +1,7 @@
 import React from 'react';
 import { Aux } from '../../hoc';
 import { Burger, BuildControls, Modal, OrderSummary, Loader } from '../../components';
-import axios from 'axios';
-import { config } from '../../config/config';
+import axios from '../../axios';
 
 class BurgerBuilder extends React.Component {
   state = {
@@ -46,7 +45,7 @@ class BurgerBuilder extends React.Component {
   }
   componentDidMount = async () => {
     try {
-      const ingredientsData = await axios(`${config.apiUrl}/ingredients`);
+      const ingredientsData = await axios('/ingredients');
       if (ingredientsData && ingredientsData.data && ingredientsData.data.data) {
         const ingredients = {};
         const ingredientTypes = [];

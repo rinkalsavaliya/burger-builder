@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'production') {
   config.apiUrl = '/api/v1';
   window.console.log = () => {};
 }
-console.log(process.env);
+console.log(process.env, config);
 export {
   config
 };
