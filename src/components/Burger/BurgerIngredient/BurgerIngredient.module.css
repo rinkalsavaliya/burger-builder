@@ -5,12 +5,12 @@
   box-shadow: inset -15px 0 #c15711;
   margin: 0 auto;
   position: relative;
-  min-height: 60px;
+  min-height: 90px;
 }
 
 .BreadBottom {
   width: 90%;
-  min-height: 25px;
+  min-height: 40px;
   background: linear-gradient(#F08E4A, #e27b36);
   border-radius: 0 0 30px 30px;
   box-shadow: inset -15px 0 #c15711;
