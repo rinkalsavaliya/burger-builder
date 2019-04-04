@@ -8,6 +8,7 @@ import OrderSummary from './Burger/OrderSummary/OrderSummary';
 import Toolbar from './Navigation/Toolbar/Toolbar';
 import SideDrawer from './Navigation/SideDrawer/SideDrawer';
 import Loader from './UI/Loader/Loader';
+import CheckoutSummary from './Order/CheckoutSummary/CheckoutSummary';
 
 export {
   Burger,
@@ -19,5 +20,6 @@ export {
   Button,
   Toolbar,
   SideDrawer,
-  Loader
+  Loader,
+  CheckoutSummary
 };
