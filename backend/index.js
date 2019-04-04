@@ -27,8 +27,8 @@ app.get('/api/v1/ingredients', (req, res) => {
       isError: false,
       data: {
         ingredients: [
-          { label: 'Salad', type: 'salad', price: 0.5 },
           { label: 'Onion', type: 'onion', price: 0.2 },
+          { label: 'Salad', type: 'salad', price: 0.5 },
           { label: 'Tomato', type: 'tomato', price: 0.8 },
           { label: 'Cheese', type: 'cheese', price: 0.4 },
           { label: 'Bacon', type: 'bacon', price: 0.7 },
