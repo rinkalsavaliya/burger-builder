@@ -19,6 +19,10 @@
   outline: none;
   background-color: #ccc;
 }
+.Error {
+  color: red;
+  text-align: left;
+}
 
 @-webkit-keyframes fade-in {
   0% {

@@ -5,7 +5,7 @@ import ContactData from './ContactData/ContactData';
 
 class Checkout extends React.Component {
   state = {
-    ingredients: null,
+    ingredients: {},
     price: 0
   };
   componentWillMount = () => {
@@ -22,7 +22,7 @@ class Checkout extends React.Component {
       });
       this.setState(state);
     } else {
-      this.setState({ ingredients: {}, price: 0 });
+      this.props.history.push('/');
     }
   }
   checkoutCancelled = () => {
