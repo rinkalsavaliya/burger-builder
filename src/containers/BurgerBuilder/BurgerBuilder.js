@@ -2,7 +2,6 @@ import React from 'react';
 import { Aux } from '../../hoc';
 import { Burger, BuildControls, Modal, OrderSummary, Loader } from '../../components';
 import axiosBurger from '../../axios-orders';
-import { withErrorHandler } from '../../hoc';
 import { withRouter } from 'react-router-dom';
 
 class BurgerBuilder extends React.Component {
@@ -38,33 +37,15 @@ class BurgerBuilder extends React.Component {
     this.setState({ purchasing: value });
   }
   purchaseContinueHandler = () => {
-    // this.setState({ ...this.state, ordering: true });
-    // setTimeout(() => {
-    //   const order = {
-    //     ingredients: this.state.ingredients,
-    //     price: this.state.totalPrice,
-    //     customer: {
-    //       name: 'Rinkal',
-    //       address: {
-    //         street: 'C-103, Shrifal Apartment, Opp. Osia Hypermart',
-    //         landmark: 'Gota',
-    //         city: 'Ahmedabad',
-    //         country: 'India',
-    //         zipCode: '382481'
-    //       },
-    //       email: 'rinkal@scaletech.xyz'
-    //     },
-    //     deliveryMethod: 'fastest'
-    //   }
-    //   axiosBurger.post('/orders.json', order)
-    //   .then((response) => {
-    //     this.setState({ ...this.state, ordering: false, purchasing: false });
-    //   }).catch((error) => {
-    //     console.log(error, 'error');
-    //     this.setState({ ...this.state, ordering: false });
-    //   });
-    // }, 2000);
-    this.props.history.push('/checkout');
+    const search = [];
+    for (const ingredient in this.state.ingredients) {
+      search.push(`${encodeURIComponent(ingredient)}=${encodeURIComponent(this.state.ingredients[ingredient])}`)
+    }
+    search.push(`price=${encodeURIComponent(this.state.totalPrice)}`)
+    this.props.history.push({
+      pathname: '/checkout',
+      search: `?${search.join('&')}`
+    });
   }
   componentDidMount = async () => {
     try {
@@ -141,4 +122,4 @@ class BurgerBuilder extends React.Component {
   }
 }
 
-export default withRouter(withErrorHandler(BurgerBuilder, axiosBurger));
+export default withRouter(BurgerBuilder, axiosBurger);
