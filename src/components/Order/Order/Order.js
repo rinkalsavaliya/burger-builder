@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Order.module.css';
 const order = (props) => {
   const ingredients = Object.keys(props.order.ingredients).map(igKey => {
-    return <span
+    return (!!props.order.ingredients[igKey] && <span
             key={`${props.order.id}-${igKey}`}
             style={{
               textTransform: 'capitalize',
@@ -13,7 +13,7 @@ const order = (props) => {
             }}
             >
             {igKey} ({props.order.ingredients[igKey]})
-           </span>;
+           </span>);
   });
   return (
     <div className={classes.Order}>

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Layout, asyncComponent, withErrorHandler } from './hoc';
+import { Layout, withErrorHandler } from './hoc';
 import axios from './axios-orders';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-const AsyncBurgerBuilder = asyncComponent(() => import('./containers/BurgerBuilder/BurgerBuilder'));
-const AsyncCheckout = asyncComponent(() => import('./containers/Checkout/Checkout'));
-const AsyncOrders = asyncComponent(() => import('./containers/Orders/Orders'));
+import { AsyncBurgerBuilder, AsyncCheckout, AsyncOrders } from './async-components';
 
 class App extends Component {
   render() {
