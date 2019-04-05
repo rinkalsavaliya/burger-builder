@@ -5,6 +5,7 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 const AsyncBurgerBuilder = asyncComponent(() => import('./containers/BurgerBuilder/BurgerBuilder'));
 const AsyncCheckout = asyncComponent(() => import('./containers/Checkout/Checkout'));
+const AsyncOrders = asyncComponent(() => import('./containers/Orders/Orders'));
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={AsyncBurgerBuilder}/>
               <Route path='/checkout' component={AsyncCheckout}/>
+              <Route exact path='/orders' component={AsyncOrders}/>
               <Route render={() => <h1 style={{textAlign:'center'}}>404 NOT FOUND</h1>}/>
             </Switch>
           </Layout>
