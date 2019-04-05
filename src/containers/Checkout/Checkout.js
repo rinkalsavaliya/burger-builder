@@ -20,8 +20,9 @@ class Checkout extends React.Component {
           state.price = parseFloat(queryParam[1]);
         }
       });
-      console.log(state);
       this.setState(state);
+    } else {
+      this.setState({ ingredients: {}, price: 0 });
     }
   }
   checkoutCancelled = () => {

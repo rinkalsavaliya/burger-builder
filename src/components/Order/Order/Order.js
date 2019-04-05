@@ -3,6 +3,7 @@ import classes from './Order.module.css';
 const order = (props) => {
   const ingredients = Object.keys(props.order.ingredients).map(igKey => {
     return <span
+            key={`${props.order.id}-${igKey}`}
             style={{
               textTransform: 'capitalize',
               display: 'inline-block',

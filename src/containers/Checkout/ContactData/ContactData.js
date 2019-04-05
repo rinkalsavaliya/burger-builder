@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Loader } from '../../../components';
+import { Button, Loader, Input } from '../../../components';
 import classes from './ContactData.module.css';
 import axiosBurger from '../../../axios-orders';
 import { withRouter } from 'react-router-dom';
@@ -62,13 +62,13 @@ class ContactData extends React.Component {
       <div className={classes.ContactData}>
         <h4>Enter your contact data</h4>
         <form>
-          <input className={classes.Input} type='text' name='name' placeholder='please enter your name'/>
-          <input className={classes.Input} type='email' name='email' placeholder='please enter your email'/>
-          <input className={classes.Input} type='text' name='street' placeholder='please enter street'/>
-          <input className={classes.Input} type='text' name='landmark' placeholder='please enter landmark'/>
-          <input className={classes.Input} type='text' name='city' placeholder='please enter city'/>
-          <input className={classes.Input} type='text' name='country' placeholder='please enter country'/>
-          <input className={classes.Input} type='text' name='zipCode' placeholder='please enter zip-code'/>
+          <Input inputType='text' type='text' placeholder='please enter your name'/>
+          <Input inputType='text' type='email' placeholder='please enter your email'/>
+          <Input inputType='text' type='text' placeholder='please enter street'/>
+          <Input inputType='text' type='text' placeholder='please enter landmark'/>
+          <Input inputType='text' type='text' placeholder='please enter city'/>
+          <Input inputType='text' type='text' placeholder='please enter country'/>
+          <Input inputType='text' type='text' placeholder='please enter zip-code'/>
           <Button btnType='Success' clicked={this.orderHandler}>ORDER</Button>
         </form>
       </div>
