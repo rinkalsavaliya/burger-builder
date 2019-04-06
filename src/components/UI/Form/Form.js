@@ -8,7 +8,6 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...props};
-    console.log(props, this.state, 'props');
   }
   changeFormInput = (event, input) => {
     const controls = {...this.state.controls};
@@ -20,11 +19,10 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className='Form'>
         <h4>{this.props.heading}</h4>
-        <form>
+        <form onSubmit={(event) => this.props.submitForm(event, this.state.controls)}>
           {
             Object.keys(this.state.controls).map(input => {
               return <Input
@@ -36,7 +34,7 @@ class Form extends React.Component {
                       />;
             })
           }
-          <Button click={this.props.submitForm} btnType='Success'>{this.props.submitText || 'SUBMIT'}</Button>
+          <Button btnType='Success'>{this.props.submitText || 'SUBMIT'}</Button>
         </form>
       </div>
     );

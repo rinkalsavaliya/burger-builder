@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Loader, Input, Form } from '../../../components';
+import { Loader, Form } from '../../../components';
 import classes from './ContactData.module.css';
 import { withRouter, Redirect } from 'react-router-dom';
-import formInputs from './form-config';
+import controls from './form-config';
 import { connect } from 'react-redux';
 import mapDispatchToProps from '../../../store/actions/orders';
 import { isErrorInInput } from '../../../lib/helper';
@@ -14,22 +14,23 @@ const mapStateToProps = (state) => {
 
 class ContactData extends React.Component {
   state = {
-    formInputs: {...formInputs},
+    controls: {...controls},
     ordering: false
   };
   static getDerivedStateFromProps(props, state) {
-    return {...formInputs, ordering: props.ordering};
+    return {...controls, ordering: props.ordering};
   }
 
-  orderHandler = (event) => {
+  orderHandler = (event, state) => {
     event.preventDefault();
+    state = {...this.state,state};
     this.setState({ ...this.state, ordering: true });
-    let state = {...this.state};
-    let error = false
-    for (const input in state.formInputs) {
-      const errorMsg = isErrorInInput(state.formInputs[input].elementConfig.value, state.formInputs[input].validation, state.formInputs[input].label);
+    let error = false;
+    for (const input in state.controls) {
+      const errorMsg = isErrorInInput(state.controls[input].elementConfig.value, state.controls[input].validation, state.controls[input].label);
+      console.log(input, errorMsg);
       if (errorMsg) {
-        state.formInputs[input].error = errorMsg;
+        state.controls[input].error = errorMsg;
         error = true;
       }
     }
@@ -38,14 +39,14 @@ class ContactData extends React.Component {
       return;
     }
     const customer = {
-      name: this.state.formInputs.name.elementConfig.value,
-      email: this.state.formInputs.email.elementConfig.value,
+      name: this.state.controls.name.elementConfig.value,
+      email: this.state.controls.email.elementConfig.value,
       address: {
-        city: this.state.formInputs.city.elementConfig.value,
-        country: this.state.formInputs.country.elementConfig.value,
-        landmark: this.state.formInputs.landmark.elementConfig.value,
-        street: this.state.formInputs.street.elementConfig.value,
-        zipCode: this.state.formInputs.zipCode.elementConfig.value
+        city: this.state.controls.city.elementConfig.value,
+        country: this.state.controls.country.elementConfig.value,
+        landmark: this.state.controls.landmark.elementConfig.value,
+        street: this.state.controls.street.elementConfig.value,
+        zipCode: this.state.controls.zipCode.elementConfig.value
       }
     }
     const order = {
@@ -55,14 +56,6 @@ class ContactData extends React.Component {
       deliveryMethod: 'fastest'
     }
     this.props.onPlaceOrder(order);
-  }
-  changeFormInput = (event, input) => {
-    const formInputs = {...this.state.formInputs};
-    if (formInputs[input]) {
-      formInputs[input].elementConfig.value = event.target.value;
-      formInputs[input].error = isErrorInInput(formInputs[input].elementConfig.value, formInputs[input].validation, formInputs[input].label);
-      this.setState({ ...this.state, formInputs })
-    }
   }
   render () {
     const ings = Object.keys(this.props.ingredients || {});
@@ -76,27 +69,8 @@ class ContactData extends React.Component {
         </div>
       )
     }
-    // return (
-    //   <Form control={{...this.state.formInputs}} submitForm={this.orderHandler} submitText='ORDER' heading='Enter your contact data'/>
-    // )
     return (
-      <div className={classes.ContactData}>
-        <h4>Enter your contact data</h4>
-        <form onSubmit={this.orderHandler}>
-          {
-            Object.keys(this.state.formInputs).map(input => {
-              return <Input
-                        key={input}
-                        change={(event) => this.changeFormInput(event, input)}
-                        inputType={this.state.formInputs[input].inputType}
-                        error={this.state.formInputs[input].error}
-                        inputProps={this.state.formInputs[input].elementConfig}
-                      />;
-            })
-          }
-          <Button btnType='Success'>ORDER</Button>
-        </form>
-      </div>
+      <Form controls={this.state.controls} submitForm={this.orderHandler} submitText='ORDER' heading='Enter your contact data'/>
     )
   }
 }
