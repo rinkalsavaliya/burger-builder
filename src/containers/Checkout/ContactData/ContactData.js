@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, Loader, Input } from '../../../components';
+import { Button, Loader, Input, Form } from '../../../components';
 import classes from './ContactData.module.css';
 import { withRouter, Redirect } from 'react-router-dom';
 import formInputs from './form-config';
 import { connect } from 'react-redux';
 import mapDispatchToProps from '../../../store/actions/orders';
+import { isErrorInInput } from '../../../lib/helper';
 const mapStateToProps = (state) => {
   return {
     ...state.order
@@ -13,31 +14,20 @@ const mapStateToProps = (state) => {
 
 class ContactData extends React.Component {
   state = {
-    formInputs: formInputs,
+    formInputs: {...formInputs},
     ordering: false
   };
   static getDerivedStateFromProps(props, state) {
     return {...formInputs, ordering: props.ordering};
   }
-  isErrorInInput(value, validation, label) {
-    if (validation.required && !value) {
-      return `${label} is a required field`;
-    }
-    if (validation.minLength && value.toString().trim().length < validation.minLength) {
-      return `${label} must have minimum length of ${validation.minLength}`;
-    }
-    if (validation.maxLength && value.toString().trim().length > validation.maxLength) {
-      return `${label} must have maximum length of ${validation.maxLength}`;
-    }
-    return '';
-  }
+
   orderHandler = (event) => {
     event.preventDefault();
     this.setState({ ...this.state, ordering: true });
     let state = {...this.state};
     let error = false
     for (const input in state.formInputs) {
-      const errorMsg = this.isErrorInInput(state.formInputs[input].elementConfig.value, state.formInputs[input].validation, state.formInputs[input].label);
+      const errorMsg = isErrorInInput(state.formInputs[input].elementConfig.value, state.formInputs[input].validation, state.formInputs[input].label);
       if (errorMsg) {
         state.formInputs[input].error = errorMsg;
         error = true;
@@ -70,7 +60,7 @@ class ContactData extends React.Component {
     const formInputs = {...this.state.formInputs};
     if (formInputs[input]) {
       formInputs[input].elementConfig.value = event.target.value;
-      formInputs[input].error = this.isErrorInInput(formInputs[input].elementConfig.value, formInputs[input].validation, formInputs[input].label);
+      formInputs[input].error = isErrorInInput(formInputs[input].elementConfig.value, formInputs[input].validation, formInputs[input].label);
       this.setState({ ...this.state, formInputs })
     }
   }
@@ -86,6 +76,9 @@ class ContactData extends React.Component {
         </div>
       )
     }
+    // return (
+    //   <Form control={{...this.state.formInputs}} submitForm={this.orderHandler} submitText='ORDER' heading='Enter your contact data'/>
+    // )
     return (
       <div className={classes.ContactData}>
         <h4>Enter your contact data</h4>

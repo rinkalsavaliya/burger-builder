@@ -5,6 +5,7 @@ import Modal from './UI/Modal/Modal';
 import Backdrop from './UI/Backdrop/Backdrop';
 import Button from './UI/Button/Button';
 import Input from './UI/Input/Input';
+import Form from './UI/Form/Form';
 import OrderSummary from './Burger/OrderSummary/OrderSummary';
 import Toolbar from './Navigation/Toolbar/Toolbar';
 import SideDrawer from './Navigation/SideDrawer/SideDrawer';
@@ -25,5 +26,6 @@ export {
   SideDrawer,
   Loader,
   CheckoutSummary,
-  Order
+  Order,
+  Form
 };

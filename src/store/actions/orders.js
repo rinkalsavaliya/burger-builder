@@ -19,6 +19,40 @@ const placeOrder = (payload) => {
   };
 }
 
+
+/**
+ * sample response :
+ *  {
+ *  	"-Lbm5G1cFeNu0ZJ-mpzk": {
+ *  		"customer": {
+ *  			"address": {
+ *  				"city": "sa", "country": "sa", "landmark": "sa", "street": "sa", "zipCode": "sssss"
+ *  			},
+ *  			"email": "sa",
+ *  			"name": "sa"
+ *  		},
+ *  		"deliveryMethod": "fastest",
+ *  		"ingredients": {
+ *  			"bacon": 0, "cheese": 0, "meat": 1, "onion": 0, "salad": 0, "tomato": 0
+ *  		},
+ *  		"price": 5.3
+ *  	},
+ *  	"-Lbm5LeQAfQvCMMoQj4J": {
+ *  		"customer": {
+ *  			"address": {
+ *  				"city": "s", "country": "s", "landmark": "s", "street": "s", "zipCode": "sssss"
+ *  			},
+ *  			"email": "s",
+ *  			"name": "s"
+ *  		},
+ *  		"deliveryMethod": "fastest",
+ *  		"ingredients": {
+ *  			"bacon": 0, "cheese": 0, "meat": 0, "onion": 1, "salad": 0, "tomato": 0
+ *  		},
+ *  		"price": 4.2
+ *  	}
+ *  }
+ */
 const fetchOrders = () => {
   return (dispatch) => {
     dispatch({ type: actionTypes.FETCH_ORDERS_INIT })
