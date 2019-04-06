@@ -1,11 +1,16 @@
 import React from 'react';
 import { Order, Loader } from '../../components';
 import axios from '../../axios-orders';
+import { connect } from 'react-redux';
+import mapDispatchToProps from '../../store/actions/orders';
+const mapStateToProps = state => {
+  return {...state.orders};
+};
 
 class Orders extends React.Component {
-  state = {
-    orders: [],
-    loading: true
+  state = {...this.props};
+  static getDerivedStateFromProps = (props) => {
+    return { ...props };
   }
   componentDidMount = () => {
     this.fetchOrders();
@@ -14,16 +19,12 @@ class Orders extends React.Component {
     axios.get('/orders.json')
     .then((response) => {
       if (response.data) {
-        const state = {
-          orders: Object.keys(response.data).map(orderId => { return {...response.data[orderId], id: orderId} }),
-          loading: false
-        };
-        this.setState(state);
+        this.props.onGetOrders({ orders: Object.keys(response.data).map(orderId => { return {...response.data[orderId], id: orderId} }) });
       } else {
-        this.setState({ ...this.state, loading: false });
+        this.props.onGetOrderFail();
       }
     }).catch(() => {
-      this.setState({ ...this.state, loading: false });
+      this.props.onGetOrderFail();
     })
   }
   render() {
@@ -42,4 +43,4 @@ class Orders extends React.Component {
     );
   }
 };
-export default Orders;
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);
