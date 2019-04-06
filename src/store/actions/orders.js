@@ -19,10 +19,32 @@ const placeOrder = (payload) => {
   };
 }
 
+const fetchOrders = () => {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.FETCH_ORDERS_INIT })
+    axiosBurger.get('/orders.json')
+    .then((response) => {
+      if (response && response.data) {
+        dispatch({
+          type: actionTypes.FETCH_ORDERS_SUCCESS,
+          payload: {
+            orders: Object.keys(response.data).map(orderId => { return {...response.data[orderId], id: orderId} })
+          }
+        })
+      } else {
+        dispatch({ type: actionTypes.FETCH_ORDERS_FAIL })
+      }
+    }).catch(err => {
+      console.log(err, 'err');
+      dispatch({ type: actionTypes.FETCH_ORDERS_FAIL });
+    });
+  };
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchOrders: (payload) => dispatch({ type: actionTypes.FETCH_ORDERS, payload }),
-    onFetchOrderFail: () => dispatch({ type: actionTypes.FAIL_FETCH_ORDERS }),
+    onFetchOrders: (payload) => dispatch(fetchOrders()),
+    onFetchOrderFail: () => dispatch({ type: actionTypes.FETCH_ORDERS_FAIL }),
     onPlaceOrder: (payload) => dispatch(placeOrder(payload)),
   }
 }

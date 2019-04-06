@@ -2,7 +2,7 @@ import * as actionTypes from '../actionTypes';
 
 const reducer = {};
 
-reducer[actionTypes.FETCH_ORDERS] = (state, action) => {
+reducer[actionTypes.FETCH_ORDERS_SUCCESS] = (state, action) => {
   return {
     ...state,
     orders: {
@@ -13,7 +13,17 @@ reducer[actionTypes.FETCH_ORDERS] = (state, action) => {
   }
 }
 
-reducer[actionTypes.FAIL_FETCH_ORDERS] = (state, action) => {
+reducer[actionTypes.FETCH_ORDERS_INIT] = (state, action) => {
+  return {
+    ...state,
+    orders: {
+      orders: [],
+      loading: true
+    }
+  }
+}
+
+reducer[actionTypes.FETCH_ORDERS_FAIL] = (state, action) => {
   return {
     ...state,
     orders: {

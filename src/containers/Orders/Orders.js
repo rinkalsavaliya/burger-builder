@@ -9,18 +9,14 @@ const mapStateToProps = state => {
 
 class Orders extends React.Component {
   componentDidMount = () => {
-    if (this.props.loading) {
+    if (!this.props.orders.length) {
       this.fetchOrders();
     }
   }
   fetchOrders = () => {
     axios.get('/orders.json')
     .then((response) => {
-      if (response.data) {
-        this.props.onFetchOrders({ orders: Object.keys(response.data).map(orderId => { return {...response.data[orderId], id: orderId} }) });
-      } else {
-        this.props.onFetchOrderFail();
-      }
+      this.props.onFetchOrders();
     }).catch(() => {
       this.props.onFetchOrderFail();
     })
