@@ -1,4 +1,4 @@
-import * as actionTypes from '../action-types';
+import * as actionTypes from '../actionTypes';
 
 const reducer = {};
 
@@ -38,7 +38,7 @@ reducer[actionTypes.PLACE_ORDER] = (state, action) => {
     },
     orders: {
       ...state.orders,
-      orders: state.orders.orders.concat(action.payload)
+      orders: state.orders.orders.length ? state.orders.orders.concat(action.payload) : []
     }
   }
 }
