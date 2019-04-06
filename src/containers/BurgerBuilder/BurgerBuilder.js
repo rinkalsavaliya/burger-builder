@@ -8,17 +8,18 @@ import mapDispatchToProps from '../../store/actions/burgerBuilder';
 
 const mapStateToProps = state => {
   return {
-    ...state.burgerBuilder
+    ...state.burgerBuilder,
+    purchasing: false
   }
 };
 
 class BurgerBuilder extends React.Component {
   state = {...this.props};
-  static getDerivedStateFromProps = (props) => {
-    return { ...props };
+  static getDerivedStateFromProps = (props, state) => {
+    return { ...props, purchasing: state.purchasing };
   }
   purchaseHandler = (value) => {
-    this.setState({ ...this.state, purchasing: value });
+    this.setState({ ...this.state, purchasing: value.purchasing });
   }
   purchaseContinueHandler = () => {
     this.props.history.push({
@@ -27,7 +28,9 @@ class BurgerBuilder extends React.Component {
   }
   componentDidMount = async () => {
     try {
-      await this.fetchIngredients();
+      if (Object.keys(this.state.ingredients).length === 0) {
+        await this.fetchIngredients();
+      }
     } catch (e) {
       this.props.onFailGetIngredients();
     }
@@ -49,10 +52,7 @@ class BurgerBuilder extends React.Component {
     *  }
     */
     if (ingredientsData && ingredientsData.data && ingredientsData.data.data) {
-      const { ingredients, ingredientTypes, basicPrice, totalPrice, ingredientPrices } = this.mapIngredients(ingredientsData.data.data);
-      this.props.onGetIngredients({
-        ingredientTypes, ingredients, ingredientPrices, basicPrice, totalPrice
-      });
+      this.props.onFetchIngredients(this.mapIngredients(ingredientsData.data.data));
     } else {
       this.props.onFailGetIngredients();
     }
@@ -88,7 +88,7 @@ class BurgerBuilder extends React.Component {
             <Burger ingredients={this.state.ingredients}/>
             <BuildControls
               ingredientTypes={this.state.ingredientTypes}
-              purchase={() => this.props.onPurchaseClick({ purchasing: true})}
+              purchase={() => this.purchaseHandler({ purchasing: true})}
               purchasable={!this.state.purchasable}
               price={this.state.totalPrice}
               disable={disableInfo}
@@ -98,10 +98,10 @@ class BurgerBuilder extends React.Component {
           </div>
             <Modal
               show={this.state.purchasing}
-              closeModal={() => this.props.onPurchaseClick({ purchasing: false})}>
+              closeModal={() => this.purchaseHandler({ purchasing: false})}>
               <OrderSummary
                 ingredients={this.state.ingredients}
-                closeModal={() => this.props.onPurchaseClick({ purchasing: false})}
+                closeModal={() => this.purchaseHandler({ purchasing: false})}
                 continuePurchase={this.purchaseContinueHandler}
                 totalPrice={this.state.totalPrice}>
               </OrderSummary>

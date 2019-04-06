@@ -8,7 +8,6 @@ const initialState = {
     totalPrice: 0,
     basicPrice: 0,
     purchasable: false,
-    purchasing: false,
     loading: true,
     success: false
   },

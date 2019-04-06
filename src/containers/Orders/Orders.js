@@ -19,12 +19,12 @@ class Orders extends React.Component {
     axios.get('/orders.json')
     .then((response) => {
       if (response.data) {
-        this.props.onGetOrders({ orders: Object.keys(response.data).map(orderId => { return {...response.data[orderId], id: orderId} }) });
+        this.props.onFetchOrders({ orders: Object.keys(response.data).map(orderId => { return {...response.data[orderId], id: orderId} }) });
       } else {
-        this.props.onGetOrderFail();
+        this.props.onFetchOrderFail();
       }
     }).catch(() => {
-      this.props.onGetOrderFail();
+      this.props.onFetchOrderFail();
     })
   }
   render() {

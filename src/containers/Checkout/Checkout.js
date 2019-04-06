@@ -16,7 +16,6 @@ class Checkout extends React.Component {
     if (Object.keys(this.props.ingredients).length === 0) {
       this.props.history.push('/');
     }
-    console.log(this.state);
   }
   checkoutCancelled = () => {
     this.props.history.push('/');

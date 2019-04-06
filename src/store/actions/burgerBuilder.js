@@ -1,11 +1,12 @@
+import * as actionTypes from '../action-types';
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetIngredients: (payload) => dispatch({ type: 'FETCH_INGREDIENTS', payload }),
-    onFailGetIngredients: () => dispatch({ type: 'FAIL_FETCH_INGREDIENTS' }),
-    onAddIngredient: (payload) => dispatch({ type: 'ADD_INGREDIENT', payload }),
-    onRemoveIngredient: (payload) => dispatch({ type: 'REMOVE_INGREDIENT', payload }),
-    onPurchaseClick: (payload) => dispatch({ type: 'PURCHASE', payload })
-  }
+    onFetchIngredients: (payload) => dispatch({ type: actionTypes.FETCH_INGREDIENTS, payload }),
+    onFailGetIngredients: () => dispatch({ type: actionTypes.FAIL_FETCH_INGREDIENTS }),
+    onAddIngredient: (payload) => dispatch({ type: actionTypes.ADD_INGREDIENT, payload }),
+    onRemoveIngredient: (payload) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, payload })
+  };
 }
 
 export default mapDispatchToProps;

@@ -31,39 +31,35 @@ reducer[actionTypes.FAIL_FETCH_INGREDIENTS] = (state, action) => {
 }
 
 reducer[actionTypes.ADD_INGREDIENT] = (state, action) => {
-  const burgerBuilder = {...state.burgerBuilder};
-  burgerBuilder.ingredients[action.payload.ingredientType] += 1;
-  burgerBuilder.totalPrice += burgerBuilder.ingredientPrices[action.payload.ingredientType];
-  burgerBuilder.purchasable = (burgerBuilder.totalPrice > burgerBuilder.basicPrice);
+  const purchasable = ((state.burgerBuilder.totalPrice + state.burgerBuilder.ingredientPrices[action.payload.ingredientType]) > state.burgerBuilder.basicPrice);
   return {
     ...state,
     burgerBuilder: {
-      ...burgerBuilder
+      ...state.burgerBuilder,
+      ingredients: {
+        ...state.burgerBuilder.ingredients,
+        [action.payload.ingredientType]: state.burgerBuilder.ingredients[action.payload.ingredientType] + 1
+      },
+      totalPrice: state.burgerBuilder.totalPrice + state.burgerBuilder.ingredientPrices[action.payload.ingredientType],
+      purchasable
     }
   };
 }
 
 reducer[actionTypes.REMOVE_INGREDIENT] = (state, action) => {
-  const burgerBuilder = {...state.burgerBuilder};
-  burgerBuilder.ingredients[action.payload.ingredientType] -= 1;
-  burgerBuilder.totalPrice -= burgerBuilder.ingredientPrices[action.payload.ingredientType];
-  burgerBuilder.purchasable = (burgerBuilder.totalPrice > burgerBuilder.basicPrice);
-  return {
-    ...state,
-    burgerBuilder: {
-      ...burgerBuilder
-    }
-  };
-}
-
-reducer[actionTypes.PURCHASE] = (state, action) => {
+  const purchasable = ((state.burgerBuilder.totalPrice - state.burgerBuilder.ingredientPrices[action.payload.ingredientType]) > state.burgerBuilder.basicPrice);
   return {
     ...state,
     burgerBuilder: {
       ...state.burgerBuilder,
-      purchasing: action.payload.purchasing
+      ingredients: {
+        ...state.burgerBuilder.ingredients,
+        [action.payload.ingredientType]: state.burgerBuilder.ingredients[action.payload.ingredientType] - 1
+      },
+      totalPrice: state.burgerBuilder.totalPrice - state.burgerBuilder.ingredientPrices[action.payload.ingredientType],
+      purchasable
     }
-  }
+  };
 }
 
 export default reducer;

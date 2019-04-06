@@ -1,7 +1,9 @@
+import * as actionTypes from '../action-types';
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGetOrders: (payload) => dispatch({ type: 'FETCH_ORDERS', payload }),
-    onGetOrderFail: () => dispatch({ type: 'FAIL_FETCH_ORDERS' }),
+    onFetchOrders: (payload) => dispatch({ type: actionTypes.FETCH_ORDERS, payload }),
+    onFetchOrderFail: () => dispatch({ type: actionTypes.FAIL_FETCH_ORDERS }),
   }
 }
 
