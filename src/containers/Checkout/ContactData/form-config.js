@@ -15,7 +15,7 @@ const formInputs = {
     label: 'email',
     inputType: 'input',
     elementConfig: {
-      type: 'text',
+      type: 'email',
       placeholder: 'please enter your email',
       value: ''
     },

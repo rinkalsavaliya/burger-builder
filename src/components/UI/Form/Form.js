@@ -18,11 +18,29 @@ class Form extends React.Component {
     }
   }
 
+  submitForm = (event) => {
+    event.preventDefault();
+    const controls = {...this.state.controls};
+    let error = false;
+    for (const input in controls) {
+      const errorMsg = isErrorInInput(controls[input].elementConfig.value, controls[input].validation, controls[input].label);
+      if (errorMsg) {
+        controls[input].error = errorMsg;
+        error = true;
+      }
+    }
+    if (error) {
+      this.setState({...this.state,controls});
+    } else {
+      this.props.submitForm({ controls });
+    }
+  }
+
   render() {
     return (
       <div className='Form'>
         <h4>{this.props.heading}</h4>
-        <form onSubmit={(event) => this.props.submitForm(event, this.state.controls)}>
+        <form onSubmit={this.submitForm}>
           {
             Object.keys(this.state.controls).map(input => {
               return <Input

@@ -21,39 +21,24 @@ class ContactData extends React.Component {
     return {...controls, ordering: props.ordering};
   }
 
-  orderHandler = (event, state) => {
-    event.preventDefault();
+  orderHandler = (state) => {
     state = {...this.state,state};
     this.setState({ ...this.state, ordering: true });
-    let error = false;
-    for (const input in state.controls) {
-      const errorMsg = isErrorInInput(state.controls[input].elementConfig.value, state.controls[input].validation, state.controls[input].label);
-      console.log(input, errorMsg);
-      if (errorMsg) {
-        state.controls[input].error = errorMsg;
-        error = true;
-      }
-    }
-    if (error) {
-      this.setState(state);
-      return;
-    }
-    const customer = {
-      name: this.state.controls.name.elementConfig.value,
-      email: this.state.controls.email.elementConfig.value,
-      address: {
-        city: this.state.controls.city.elementConfig.value,
-        country: this.state.controls.country.elementConfig.value,
-        landmark: this.state.controls.landmark.elementConfig.value,
-        street: this.state.controls.street.elementConfig.value,
-        zipCode: this.state.controls.zipCode.elementConfig.value
-      }
-    }
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      customer,
-      deliveryMethod: 'fastest'
+      customer: {
+        name: this.state.controls.name.elementConfig.value,
+        email: this.state.controls.email.elementConfig.value,
+        address: {
+          city: this.state.controls.city.elementConfig.value,
+          country: this.state.controls.country.elementConfig.value,
+          landmark: this.state.controls.landmark.elementConfig.value,
+          street: this.state.controls.street.elementConfig.value,
+          zipCode: this.state.controls.zipCode.elementConfig.value
+        }
+      },
+      deliveryMethod: this.state.controls.deliveryMethod.elementConfig.value
     }
     this.props.onPlaceOrder(order);
   }
