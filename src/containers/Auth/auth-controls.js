@@ -4,7 +4,7 @@ export const controls = {
     inputType: 'input',
     elementConfig: {
       type: 'email',
-      placeholder: 'please enter your email',
+      placeholder: 'Email',
       value: ''
     },
     validation: {
@@ -16,7 +16,7 @@ export const controls = {
     inputType: 'input',
     elementConfig: {
       type: 'password',
-      placeholder: 'please enter password',
+      placeholder: 'Password',
       value: ''
     },
     validation: {

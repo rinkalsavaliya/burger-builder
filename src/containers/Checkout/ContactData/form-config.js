@@ -4,7 +4,7 @@ const formInputs = {
     inputType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'please enter your name',
+      placeholder: 'Name',
       value: ''
     },
     validation: {
@@ -16,7 +16,7 @@ const formInputs = {
     inputType: 'input',
     elementConfig: {
       type: 'email',
-      placeholder: 'please enter your email',
+      placeholder: 'Email',
       value: ''
     },
     validation: {
@@ -28,7 +28,7 @@ const formInputs = {
     inputType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'please enter street',
+      placeholder: 'Street',
       value: ''
     },
     validation: {
@@ -40,7 +40,7 @@ const formInputs = {
     inputType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'please enter landmark',
+      placeholder: 'Landmark',
       value: ''
     },
     validation: {
@@ -52,7 +52,7 @@ const formInputs = {
     inputType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'please enter city',
+      placeholder: 'City',
       value: ''
     },
     validation: {
@@ -64,7 +64,7 @@ const formInputs = {
     inputType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'please enter country',
+      placeholder: 'Country',
       value: ''
     },
     validation: {
@@ -76,7 +76,7 @@ const formInputs = {
     inputType: 'input',
     elementConfig: {
       type: 'text',
-      placeholder: 'please enter zip code',
+      placeholder: 'zip code',
       value: ''
     },
     validation: {
