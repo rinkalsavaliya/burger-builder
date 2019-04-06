@@ -21,55 +21,11 @@ class BurgerBuilder extends React.Component {
     });
   }
   componentDidMount = async () => {
-    try {
-      if (Object.keys(this.props.ingredients).length === 0) {
-        await this.fetchIngredients();
-      }
-    } catch (e) {
-      this.props.onFailGetIngredients();
+    if (Object.keys(this.props.ingredients).length === 0) {
+      this.props.onFetchIngredients();
     }
   }
 
-  fetchIngredients = async () => {
-    const ingredientsData = await axiosBurger('/ingredients.json');
-    /*
-    * sample response :
-    *  {
-    *   "data": {
-    *     "basicPrice": 4,
-    *  		"ingredients": [
-    *       { "label": "Onion", "price": 0.2, "type": "onion" }, { "label": "Salad", "price": 0.5, "type": "salad" },
-    *       { "label": "Tomato", "price": 0.8, "type": "tomato" }, { "label": "Cheese", "price": 0.4, "type": "cheese" },
-    *       { "label": "Bacon", "price": 0.7, "type": "bacon" }, { "label": "Meat", "price": 1.3, "type": "meat" }
-    *     ]
-    *    }
-    *  }
-    */
-    if (ingredientsData && ingredientsData.data && ingredientsData.data.data) {
-      this.props.onFetchIngredients(this.mapIngredients(ingredientsData.data.data));
-    } else {
-      this.props.onFailGetIngredients();
-    }
-  }
-
-  mapIngredients = (ingredientsData) => {
-    const ingredients = {};
-    const ingredientTypes = [];
-    const ingredientPrices = {};
-    const basicPrice = ingredientsData.basicPrice;
-    let totalPrice = ingredientsData.basicPrice;
-    ingredientsData.ingredients.forEach((ingredient) => {
-      ingredients[ingredient.type] = this.props.ingredients[ingredient.type] || 0;
-      ingredientPrices[ingredient.type] = ingredient.price;
-      if (this.props.ingredients[ingredient.type]) {
-        totalPrice += ingredientPrices[ingredient.type];
-      }
-      ingredientTypes.push({ label: ingredient.label, type: ingredient.type });
-    });
-    return {
-      ingredients, ingredientTypes, basicPrice, totalPrice, ingredientPrices
-    }
-  }
 
   render() {
     const disableInfo = {...this.props.ingredients};

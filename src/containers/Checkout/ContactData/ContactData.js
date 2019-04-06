@@ -1,16 +1,23 @@
 import React from 'react';
 import { Button, Loader, Input } from '../../../components';
 import classes from './ContactData.module.css';
-import axiosBurger from '../../../axios-orders';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import formInputs from './form-config';
 import { connect } from 'react-redux';
 import mapDispatchToProps from '../../../store/actions/orders';
+const mapStateToProps = (state) => {
+  return {
+    ...state.order
+  }
+}
 
 class ContactData extends React.Component {
   state = {
     formInputs: formInputs,
     ordering: false
+  };
+  static getDerivedStateFromProps(props, state) {
+    return {...formInputs, ordering: props.ordering};
   }
   isErrorInInput(value, validation, label) {
     if (validation.required && !value) {
@@ -57,20 +64,7 @@ class ContactData extends React.Component {
       customer,
       deliveryMethod: 'fastest'
     }
-    axiosBurger.post('/orders.json', order)
-    .then((response) => {
-      if (response.data) {
-        order.id = response.data.name;
-        this.props.onPlaceOrder(order);
-        this.setState({ ...this.state, ordering: false }, () => {
-          this.props.history.push('/');
-        });
-      } else {
-        this.setState({ ...this.state, ordering: false });
-      }
-    }).catch((error) => {
-      this.setState({ ...this.state, ordering: false });
-    });
+    this.props.onPlaceOrder(order);
   }
   changeFormInput = (event, input) => {
     const formInputs = {...this.state.formInputs};
@@ -81,6 +75,10 @@ class ContactData extends React.Component {
     }
   }
   render () {
+    const ings = Object.keys(this.props.ingredients || {});
+    if (!ings.length || ings.map((val) => this.props.ingredients[val]).reduce((val1, val2) => val1 + val2) === 0) {
+      return <Redirect to='/'/>
+    }
     if (this.state.ordering) {
       return (
         <div className={classes.ContactData}>
@@ -110,4 +108,4 @@ class ContactData extends React.Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(ContactData));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ContactData));

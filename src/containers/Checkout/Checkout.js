@@ -11,11 +11,6 @@ const mapStateToProps = state => {
 };
 
 class Checkout extends React.Component {
-  componentWillMount = () => {
-    if (Object.keys(this.props.ingredients).length === 0) {
-      this.props.history.push('/');
-    }
-  }
   checkoutCancelled = () => {
     this.props.history.push('/');
   }

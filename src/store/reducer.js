@@ -11,6 +11,10 @@ const initialState = {
     loading: true,
     success: false
   },
+  order: {
+    ordering: false,
+    error: false
+  },
   orders: {
     orders: [],
     loading: true

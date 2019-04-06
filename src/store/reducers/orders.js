@@ -39,6 +39,30 @@ reducer[actionTypes.PLACE_ORDER] = (state, action) => {
     orders: {
       ...state.orders,
       orders: state.orders.orders.length ? state.orders.orders.concat(action.payload) : []
+    },
+    order: {
+      ordering: false,
+      error: false
+    }
+  }
+}
+
+reducer[actionTypes.PLACE_ORDER_INIT] = (state, action) => {
+  return {
+    ...state,
+    order: {
+      ordering: true,
+      error: false
+    }
+  }
+}
+
+reducer[actionTypes.PLACE_ORDER_FAIL] = (state, action) => {
+  return {
+    ...state,
+    order: {
+      ordering: true,
+      error: true
     }
   }
 }
