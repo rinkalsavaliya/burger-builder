@@ -4,6 +4,8 @@ import classes from './ContactData.module.css';
 import axiosBurger from '../../../axios-orders';
 import { withRouter } from 'react-router-dom';
 import formInputs from './form-config';
+import { connect } from 'react-redux';
+import mapDispatchToProps from '../../../store/actions/orders';
 
 class ContactData extends React.Component {
   state = {
@@ -58,6 +60,8 @@ class ContactData extends React.Component {
     axiosBurger.post('/orders.json', order)
     .then((response) => {
       if (response.data) {
+        order.id = response.data.name;
+        this.props.onPlaceOrder(order);
         this.setState({ ...this.state, ordering: false }, () => {
           this.props.history.push('/');
         });
@@ -106,4 +110,4 @@ class ContactData extends React.Component {
   }
 }
 
-export default withRouter(ContactData);
+export default connect(null, mapDispatchToProps)(withRouter(ContactData));

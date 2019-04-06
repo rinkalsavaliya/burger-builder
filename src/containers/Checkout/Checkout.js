@@ -11,7 +11,6 @@ const mapStateToProps = state => {
 };
 
 class Checkout extends React.Component {
-  state = {...this.props};
   componentWillMount = () => {
     if (Object.keys(this.props.ingredients).length === 0) {
       this.props.history.push('/');
@@ -26,8 +25,12 @@ class Checkout extends React.Component {
   render() {
     return (
       <div>
-        <CheckoutSummary price={this.state.price} ingredients={this.state.ingredients} checkoutCancelled={this.checkoutCancelled} checkoutContinued={this.checkoutContinued}/>
-        <Route path={`${this.props.match.url}/contact-data`} render={() => (<ContactData ingredients={this.state.ingredients} price={this.state.price}/>)}/>
+        <CheckoutSummary
+          price={this.props.price}
+          ingredients={this.props.ingredients}
+          checkoutCancelled={this.checkoutCancelled}
+          checkoutContinued={this.checkoutContinued}/>
+        <Route path={`${this.props.match.url}/contact-data`} render={() => (<ContactData ingredients={this.props.ingredients} price={this.props.price}/>)}/>
       </div>
     );
   }

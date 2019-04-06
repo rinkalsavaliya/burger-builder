@@ -7,19 +7,13 @@ import { connect } from 'react-redux';
 import mapDispatchToProps from '../../store/actions/burgerBuilder';
 
 const mapStateToProps = state => {
-  return {
-    ...state.burgerBuilder,
-    purchasing: false
-  }
+  return {...state.burgerBuilder};
 };
 
 class BurgerBuilder extends React.Component {
-  state = {...this.props};
-  static getDerivedStateFromProps = (props, state) => {
-    return { ...props, purchasing: state.purchasing };
-  }
+  state = { purchasing: false };
   purchaseHandler = (value) => {
-    this.setState({ ...this.state, purchasing: value.purchasing });
+    this.setState({ purchasing: value.purchasing });
   }
   purchaseContinueHandler = () => {
     this.props.history.push({
@@ -28,7 +22,7 @@ class BurgerBuilder extends React.Component {
   }
   componentDidMount = async () => {
     try {
-      if (Object.keys(this.state.ingredients).length === 0) {
+      if (Object.keys(this.props.ingredients).length === 0) {
         await this.fetchIngredients();
       }
     } catch (e) {
@@ -65,12 +59,12 @@ class BurgerBuilder extends React.Component {
     const basicPrice = ingredientsData.basicPrice;
     let totalPrice = ingredientsData.basicPrice;
     ingredientsData.ingredients.forEach((ingredient) => {
-      ingredients[ingredient.type] = this.state.ingredients[ingredient.type] || 0;
+      ingredients[ingredient.type] = this.props.ingredients[ingredient.type] || 0;
       ingredientPrices[ingredient.type] = ingredient.price;
-      if (this.state.ingredients[ingredient.type]) {
+      if (this.props.ingredients[ingredient.type]) {
         totalPrice += ingredientPrices[ingredient.type];
       }
-      ingredientTypes.push({ label: ingredient.label, type: ingredient.type })
+      ingredientTypes.push({ label: ingredient.label, type: ingredient.type });
     });
     return {
       ingredients, ingredientTypes, basicPrice, totalPrice, ingredientPrices
@@ -78,19 +72,19 @@ class BurgerBuilder extends React.Component {
   }
 
   render() {
-    const disableInfo = {...this.state.ingredients};
+    const disableInfo = {...this.props.ingredients};
     return (
-      this.state.loading ? <Loader/> :
-        !this.state.success ?
+      this.props.loading ? <Loader/> :
+        !this.props.success ?
           <p style={{textAlign: 'center'}}>Ingredients can't be loaded</p> :
           <Aux>
           <div className='burger-wrapper'>
-            <Burger ingredients={this.state.ingredients}/>
+            <Burger ingredients={this.props.ingredients}/>
             <BuildControls
-              ingredientTypes={this.state.ingredientTypes}
+              ingredientTypes={this.props.ingredientTypes}
               purchase={() => this.purchaseHandler({ purchasing: true})}
-              purchasable={!this.state.purchasable}
-              price={this.state.totalPrice}
+              purchasable={!this.props.purchasable}
+              price={this.props.totalPrice}
               disable={disableInfo}
               addIngredient={this.props.onAddIngredient}
               removeIngredient={this.props.onRemoveIngredient}
@@ -100,10 +94,10 @@ class BurgerBuilder extends React.Component {
               show={this.state.purchasing}
               closeModal={() => this.purchaseHandler({ purchasing: false})}>
               <OrderSummary
-                ingredients={this.state.ingredients}
+                ingredients={this.props.ingredients}
                 closeModal={() => this.purchaseHandler({ purchasing: false})}
                 continuePurchase={this.purchaseContinueHandler}
-                totalPrice={this.state.totalPrice}>
+                totalPrice={this.props.totalPrice}>
               </OrderSummary>
             </Modal>
           </Aux>

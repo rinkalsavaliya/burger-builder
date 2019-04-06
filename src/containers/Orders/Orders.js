@@ -8,12 +8,10 @@ const mapStateToProps = state => {
 };
 
 class Orders extends React.Component {
-  state = {...this.props};
-  static getDerivedStateFromProps = (props) => {
-    return { ...props };
-  }
   componentDidMount = () => {
-    this.fetchOrders();
+    if (this.props.loading) {
+      this.fetchOrders();
+    }
   }
   fetchOrders = () => {
     axios.get('/orders.json')
@@ -28,16 +26,16 @@ class Orders extends React.Component {
     })
   }
   render() {
-    if (this.state.loading) {
+    if (this.props.loading) {
       return <Loader/>
     }
-    if (!this.state.orders.length) {
+    if (!this.props.orders.length) {
       return <p style={{textAlign: 'center'}}>No data available</p>;
     }
     return (
       <div>
         {
-          this.state.orders.map(order => <Order key={order.id} order={order}/>)
+          this.props.orders.map(order => <Order key={order.id} order={order}/>)
         }
       </div>
     );
