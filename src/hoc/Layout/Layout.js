@@ -4,7 +4,7 @@ import classes from './Layout.module.css';
 import { Toolbar, SideDrawer } from '../../components';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import mapDispatchToProps from '../../store/actions/auth';
+import { AUTH_LOGOUT } from '../../store/actionTypes';
 
 const mapStateToProps = (state) => {
   return {...state.auth.authData}
@@ -22,12 +22,23 @@ class Layout extends React.Component {
       <Aux>
         <Toolbar auth={this.props.auth} clickDrawerToggle={() => this.toggleSideDrawer(true)}/>
         <SideDrawer auth={this.props.auth} close={() => this.toggleSideDrawer(false)} show={this.state.showSideDrawer}/>
+
         <main className={classes.content}>
           {this.props.children}
         </main>
-        <Route exact path='/logout' render={() => { this.props.onLogout(); return <Redirect to='/auth'/> }}/>
+
+        <Route exact path='/logout' render={() => {
+          this.props.onLogout();
+          return <Redirect to='/auth'/>
+        }}/>
       </Aux>
     )
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogout: () => dispatch({ type: AUTH_LOGOUT })
   }
 }
 

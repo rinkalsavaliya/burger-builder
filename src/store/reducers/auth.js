@@ -49,9 +49,27 @@ reducer[actionTypes.RESET_AUTH] = (state, action) => {
 }
 
 reducer[actionTypes.AUTH_LOGOUT] = (state, action) => {
+  const ingredients = {...state.burgerBuilder.ingredients};
+  for (const ingredient in ingredients) {
+    ingredients[ingredient] = 0;
+  }
   removeAuth();
   return {
     ...state,
+    burgerBuilder: {
+      ...state.burgerBuilder,
+      ingredients,
+      totalPrice: state.burgerBuilder.basicPrice,
+      purchasable: false
+    },
+    order: {
+      ordering: false,
+      error: false
+    },
+    orders: {
+      orders: [],
+      loading: true
+    },
     auth: {
       loading: false,
       error: '',
