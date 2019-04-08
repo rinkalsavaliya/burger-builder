@@ -2,20 +2,32 @@
   position: fixed;
   z-index: 999;
   background-color: white;
-  width: 70%;
+  width: 80%;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px black;
   padding: 16px;
-  left: 15%;
+  left: 10%;
   top: 30%;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
   font-size: 15px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 600px && max-width: 1000px) {
   .Modal {
     width: 500px;
     left: calc(50% - 250px);
+  }
+}
+
+@media (max-height: 700px && min-height: 600px) {
+  .Modal {
+    top: 20%;
+  }
+}
+
+@media (max-height: 600px) {
+  .Modal {
+    top: 15% !important;
   }
 }

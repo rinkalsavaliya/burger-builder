@@ -1,5 +1,6 @@
 import { burgerBuilderActions, ordersActions, authActions } from './reducers';
 import { getToken } from '../lib/helper';
+import { NO_ACTION } from './actionTypes';
 
 const initialState = {
   burgerBuilder: {
@@ -33,6 +34,10 @@ const actions = {
   ...burgerBuilderActions,
   ...ordersActions,
   ...authActions
+}
+
+actions[NO_ACTION] = (state) => {
+  return state;
 }
 
 const reducer = (state = initialState, action) => {

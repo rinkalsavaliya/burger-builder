@@ -35,11 +35,28 @@ export const logout = () => {
   }
 }
 
-const checkAuthTimeout = (expirationTime) => {
+export const checkAuthTimeout = (expirationTime) => {
   return dispatch => {
+    console.log('starting timeout');
     setTimeout(() => {
       dispatch(logout());
     }, parseInt(expirationTime) * 1000);
+  }
+}
+
+export const checkExpiration = () => {
+  return dispatch => {
+    const time = getExpirationTime();
+    console.log(time, time - new Date().getTime(), 'checkExpiration');
+    if (time && time - new Date().getTime() <= 0) {
+      setTimeout(() => {
+        return dispatch(logout());
+      }, 10);
+    } else {
+      setTimeout(() => {
+        return dispatch(logout());
+      }, time - new Date().getTime());
+    }
   }
 }
 

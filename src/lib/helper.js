@@ -13,20 +13,27 @@ export const isErrorInInput = (value, validation, label) => {
 
 export const setAuth = (authData) => {
   localStorage.setItem('token', authData.idToken);
-  localStorage.setItem('expiresIn', authData.expiresIn);
+  localStorage.setItem('userId', authData.localId);
+  const expirationTimestamp = new Date().getTime() + parseInt(authData.expiresIn * 1000);
+  localStorage.setItem('expirationTimestamp', expirationTimestamp);
 }
 
 export const removeAuth = () => {
   localStorage.removeItem('token');
-  localStorage.removeItem('expiresIn');
+  localStorage.removeItem('expirationTimestamp');
+  localStorage.removeItem('userId');
 }
 
 export const getToken = (token) => {
   return localStorage.getItem('token');
 }
 
+export const getUserId = (token) => {
+  return localStorage.getItem('userId');
+}
+
 export const getExpirationTime = (token) => {
-  return localStorage.getItem('expiresIn');
+  return localStorage.getItem('expirationTimestamp');
 }
 
 export const getTokenEncodedUrl = (url) => {

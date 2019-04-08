@@ -1,10 +1,11 @@
 import * as actionTypes from '../actionTypes';
 import axiosBurger from '../../axios-orders';
-import { getTokenEncodedUrl } from '../../lib/helper';
+import { getTokenEncodedUrl, getUserId } from '../../lib/helper';
 
 const placeOrder = (payload) => {
   return (dispatch) => {
     dispatch({ type: actionTypes.PLACE_ORDER_INIT, payload })
+    payload.userId = getUserId();
     axiosBurger.post(getTokenEncodedUrl(`/orders.json`), payload)
     .then((response) => {
       if (response && response.data) {
@@ -57,7 +58,7 @@ const placeOrder = (payload) => {
 const fetchOrders = () => {
   return (dispatch) => {
     dispatch({ type: actionTypes.FETCH_ORDERS_INIT })
-    axiosBurger.get(getTokenEncodedUrl('/orders.json'))
+    axiosBurger.get(`${getTokenEncodedUrl('/orders.json')}&orderBy="userId"&equalTo="${getUserId()}"`)
     .then((response) => {
       if (response && response.data) {
         dispatch({

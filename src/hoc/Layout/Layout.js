@@ -5,6 +5,7 @@ import { Toolbar, SideDrawer } from '../../components';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import { AUTH_LOGOUT } from '../../store/actionTypes';
+import { checkExpiration } from '../../store/actions/auth';
 
 const mapStateToProps = (state) => {
   return {...state.auth.authData}
@@ -13,6 +14,13 @@ const mapStateToProps = (state) => {
 class Layout extends React.Component {
   state = {
     showSideDrawer: false
+  }
+  componentDidMount = () => {
+    if (this.props.auth) {
+      setTimeout(() => {
+        this.props.onCheckAuthTimeout();
+      });
+    }
   }
   toggleSideDrawer = (showSideDrawer) => {
     this.setState({ showSideDrawer });
@@ -38,7 +46,8 @@ class Layout extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLogout: () => dispatch({ type: AUTH_LOGOUT })
+    onLogout: () => dispatch({ type: AUTH_LOGOUT }),
+    onCheckAuthTimeout: () => dispatch(checkExpiration())
   }
 }
 

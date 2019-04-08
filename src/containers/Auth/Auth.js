@@ -7,19 +7,13 @@ import { controls } from './auth-controls';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import mapDispatchToProps from '../../store/actions/auth';
-import { getToken } from '../../lib/helper';
 
 const mapStateToProps = (state) => {
-  return state.auth;
+  return {...state.auth, totalPrice: state.burgerBuilder.totalPrice, basicPrice: state.burgerBuilder.basicPrice };
 }
 
 class Auth extends React.Component {
   state = { controls: {...controls}, isSignUp: false, error: '' };
-  componentDidMount = () => {
-    if (getToken()) {
-      this.props.onCheckAuthTimeout();
-    }
-  }
 
   static getDerivedStateFromProps = (props, state) => {
     return { ...state, error: props.error };

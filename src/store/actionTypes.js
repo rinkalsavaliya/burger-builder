@@ -20,3 +20,5 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 
 export const RESET_AUTH = 'RESET_AUTH';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+
+export const NO_ACTION = 'NO_ACTION';
