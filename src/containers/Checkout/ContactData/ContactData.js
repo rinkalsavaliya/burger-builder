@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 class ContactData extends React.Component {
   state = {
-    controls: {...controls},
+    controls: JSON.parse(JSON.stringify(controls)),
     ordering: false
   };
   static getDerivedStateFromProps(props, state) {
