@@ -13,9 +13,12 @@
   border-radius: 10px;
 }
 
+.Button:hover {
+  background-color: #c5bcbc;
+}
+
 .Button:first-of-type {
   margin-left: 0;
-  /* padding-left: 0; */
 }
 
 .Button:disabled {
