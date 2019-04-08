@@ -1,4 +1,5 @@
 import * as actionTypes from '../actionTypes';
+import { setAuth, removeAuth } from '../../lib/helper';
 
 const reducer = {};
 
@@ -13,12 +14,13 @@ reducer[actionTypes.AUTH_INIT] = (state, action) => {
 }
 
 reducer[actionTypes.AUTH_SUCCESS] = (state, action) => {
+  setAuth(action.payload);
   return {
     ...state,
     auth: {
       ...state.auth,
       loading: false,
-      authData: action.payload.authData,
+      authData: { auth: true },
       error: ''
     }
   };
@@ -39,9 +41,23 @@ reducer[actionTypes.RESET_AUTH] = (state, action) => {
   return {
     ...state,
     auth: {
+      ...state.auth,
+      loading: false,
+      error: ''
+    }
+  }
+}
+
+reducer[actionTypes.AUTH_LOGOUT] = (state, action) => {
+  removeAuth();
+  return {
+    ...state,
+    auth: {
       loading: false,
       error: '',
-      authData: {}
+      authData: {
+        auth: false
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 import { burgerBuilderActions, ordersActions, authActions } from './reducers';
+import { getToken } from '../lib/helper';
 
 const initialState = {
   burgerBuilder: {
@@ -22,7 +23,9 @@ const initialState = {
   auth: {
     loading: false,
     error: '',
-    authData: {}
+    authData: {
+      auth: Boolean(getToken())
+    }
   }
 };
 

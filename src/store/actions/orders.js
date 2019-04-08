@@ -1,10 +1,11 @@
 import * as actionTypes from '../actionTypes';
 import axiosBurger from '../../axios-orders';
+import { getTokenEncodedUrl } from '../../lib/helper';
 
 const placeOrder = (payload) => {
   return (dispatch) => {
     dispatch({ type: actionTypes.PLACE_ORDER_INIT, payload })
-    axiosBurger.post('/orders.json', payload)
+    axiosBurger.post(getTokenEncodedUrl(`/orders.json`), payload)
     .then((response) => {
       if (response && response.data) {
         payload.id = response.data.name;
@@ -56,7 +57,7 @@ const placeOrder = (payload) => {
 const fetchOrders = () => {
   return (dispatch) => {
     dispatch({ type: actionTypes.FETCH_ORDERS_INIT })
-    axiosBurger.get('/orders.json')
+    axiosBurger.get(getTokenEncodedUrl('/orders.json'))
     .then((response) => {
       if (response && response.data) {
         dispatch({

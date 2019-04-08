@@ -10,3 +10,25 @@ export const isErrorInInput = (value, validation, label) => {
   }
   return '';
 }
+
+export const setAuth = (authData) => {
+  localStorage.setItem('token', authData.idToken);
+  localStorage.setItem('expiresIn', authData.expiresIn);
+}
+
+export const removeAuth = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('expiresIn');
+}
+
+export const getToken = (token) => {
+  return localStorage.getItem('token');
+}
+
+export const getExpirationTime = (token) => {
+  return localStorage.getItem('expiresIn');
+}
+
+export const getTokenEncodedUrl = (url) => {
+  return `${url}?auth=${getToken()}`
+}

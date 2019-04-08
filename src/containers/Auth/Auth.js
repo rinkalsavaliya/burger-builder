@@ -5,16 +5,26 @@ import classes from './Auth.module.css';
 import { isErrorInInput } from '../../lib/helper';
 import { controls } from './auth-controls';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import mapDispatchToProps from '../../store/actions/auth';
+import { getToken } from '../../lib/helper';
+
 const mapStateToProps = (state) => {
   return state.auth;
 }
 
 class Auth extends React.Component {
   state = { controls: {...controls}, isSignUp: false, error: '' };
+  componentDidMount = () => {
+    if (getToken()) {
+      this.props.onCheckAuthTimeout();
+    }
+  }
+
   static getDerivedStateFromProps = (props, state) => {
     return { ...state, error: props.error };
   }
+
   switchAuthMode = (value) => {
     if (this.state.isSignUp === value) {
       return;
@@ -24,6 +34,7 @@ class Auth extends React.Component {
       this.props.onResetAuth();
     }
   }
+
   changeFormInput = (event, input) => {
     const controls = {...this.state.controls};
     if (controls[input]) {
@@ -40,7 +51,11 @@ class Auth extends React.Component {
       password: state.controls.password.elementConfig.value
     }, this.state.isSignUp ? 'signup' : 'login');
   }
+
   render() {
+    if (this.props.authData && this.props.authData.auth) {
+      return (<Redirect to='/'/>);
+    }
     return (
       <Aux>
         <div className={classes.FormWrapper}>
