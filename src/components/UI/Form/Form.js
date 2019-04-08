@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
+import Loader from '../Loader/Loader';
 import './Form.css';
 import { isErrorInInput } from '../../../lib/helper';
 
@@ -8,6 +9,9 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {...props};
+  }
+  componentWillReceiveProps = (props) => {
+    this.setState(props);
   }
   changeFormInput = (event, input) => {
     const controls = {...this.state.controls};
@@ -39,7 +43,7 @@ class Form extends React.Component {
   render() {
     return (
       <div className='Form'>
-        <h4>{this.props.heading}</h4>
+        { !!this.props.heading && (<h4>{this.props.heading}</h4>)}
         <form onSubmit={this.submitForm}>
           {
             Object.keys(this.state.controls).map(input => {
@@ -52,6 +56,8 @@ class Form extends React.Component {
                       />;
             })
           }
+          {this.props.error && (<p className='error'>{this.props.error}</p>)}
+          {this.props.loading && (<Loader/>)}
           <Button btnType='Success'>{this.props.submitText || 'SUBMIT'}</Button>
         </form>
       </div>

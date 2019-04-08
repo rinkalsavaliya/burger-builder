@@ -1,4 +1,4 @@
-import { burgerBuilderActions, ordersActions } from './reducers';
+import { burgerBuilderActions, ordersActions, authActions } from './reducers';
 
 const initialState = {
   burgerBuilder: {
@@ -18,12 +18,18 @@ const initialState = {
   orders: {
     orders: [],
     loading: true
+  },
+  auth: {
+    loading: false,
+    error: '',
+    authData: {}
   }
 };
 
 const actions = {
   ...burgerBuilderActions,
-  ...ordersActions
+  ...ordersActions,
+  ...authActions
 }
 
 const reducer = (state = initialState, action) => {

@@ -13,3 +13,11 @@
     width: 40%;
   }
 }
+
+.error {
+  color: red;
+}
+
+.text-align-center {
+  text-align: center;
+}

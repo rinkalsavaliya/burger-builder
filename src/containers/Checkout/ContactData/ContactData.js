@@ -5,7 +5,6 @@ import { withRouter, Redirect } from 'react-router-dom';
 import controls from './form-config';
 import { connect } from 'react-redux';
 import mapDispatchToProps from '../../../store/actions/orders';
-import { isErrorInInput } from '../../../lib/helper';
 const mapStateToProps = (state) => {
   return {
     ...state.order
