@@ -1,5 +1,6 @@
 .Button {
-  background-color: transparent;
+  background-color: #dad9d9;
+  cursor: pointer;
   border: none;
   color: white;
   outline: none;
@@ -8,11 +9,13 @@
   padding: 10px;
   margin: 10px;
   font-weight: bold;
+  border: 1px solid grey;
+  border-radius: 10px;
 }
 
 .Button:first-of-type {
   margin-left: 0;
-  padding-left: 0;
+  /* padding-left: 0; */
 }
 
 .Button:disabled {
