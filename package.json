@@ -2,7 +2,7 @@
   "name": "burger-builder",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://rinkalsavaliya.github.io/burger-builder",
+  "homepage" : "https://burger-builder-39e38.firebaseapp.com/",
   "dependencies": {
     "axios": "^0.18.0",
     "enzyme": "^3.9.0",
