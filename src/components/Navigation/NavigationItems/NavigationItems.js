@@ -9,7 +9,7 @@ const navigationItems = (props) => {
       {props.auth && <NavigationItem link='/orders'>Orders</NavigationItem>}
       {
         props.auth ? <NavigationItem link='/logout'>Logout</NavigationItem> :
-        <NavigationItem link='/auth'>Authenticate</NavigationItem>
+        <NavigationItem link='/auth'>Login/Signup</NavigationItem>
       }
     </ul>
   )
