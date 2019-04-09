@@ -5,6 +5,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 import controls from './form-config';
 import { connect } from 'react-redux';
 import mapDispatchToProps from '../../../store/actions/orders';
+import { cloneDeep } from 'lodash';
 const mapStateToProps = (state) => {
   return {
     ...state.order
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => {
 
 class ContactData extends React.Component {
   state = {
-    controls: JSON.parse(JSON.stringify(controls)),
+    controls: cloneDeep(controls),
     ordering: false
   };
   static getDerivedStateFromProps(props, state) {
