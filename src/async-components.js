@@ -1,8 +1,17 @@
-import { asyncComponent } from './hoc';
-const AsyncBurgerBuilder = asyncComponent(() => import('./containers/BurgerBuilder/BurgerBuilder'));
-const AsyncCheckout = asyncComponent(() => import('./containers/Checkout/Checkout'));
-const AsyncOrders = asyncComponent(() => import('./containers/Orders/Orders'));
-const AsyncAuth = asyncComponent(() => import('./containers/Auth/Auth'));
+import React from 'react';
+// import { asyncComponent } from './hoc';
+// const AsyncBurgerBuilder = React.lazy(() => {
+//   return new Promise(resolve => {
+//     setTimeout(() => {
+//       console.log('importing');
+//       resolve(import('./containers/BurgerBuilder/BurgerBuilder'))
+//     }, 5000);
+//   })
+// });
+const AsyncBurgerBuilder = React.lazy(() => import('./containers/BurgerBuilder/BurgerBuilder'));
+const AsyncCheckout = React.lazy(() => import('./containers/Checkout/Checkout'));
+const AsyncOrders = React.lazy(() => import('./containers/Orders/Orders'));
+const AsyncAuth = React.lazy(() => import('./containers/Auth/Auth'));
 
 export {
   AsyncBurgerBuilder,
