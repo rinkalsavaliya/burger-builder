@@ -1,9 +1,9 @@
 const config = {
-  apiUrl: 'http://localhost:3001/api/v1'
+  apiUrl: process.env.API_URL || 'http://localhost:3001/api/v1'
 };
 if (process.env.NODE_ENV === 'production') {
   config.apiUrl = '/api/v1';
-  window.console.log = () => {};
+  window.console.log = () => { };
 }
 console.log(process.env, config);
 const apiKey = '';
