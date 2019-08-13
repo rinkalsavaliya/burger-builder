@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes';
-import axiosBurger from '../../axios-orders';
+import axiosBurger from '../../axios';
 import { getTokenEncodedUrl, getUserId } from '../../lib/helper';
 
 const placeOrder = (payload) => {
@@ -7,17 +7,17 @@ const placeOrder = (payload) => {
     dispatch({ type: actionTypes.PLACE_ORDER_INIT, payload })
     payload.userId = getUserId();
     axiosBurger.post(getTokenEncodedUrl(`/orders.json`), payload)
-    .then((response) => {
-      if (response && response.data) {
-        payload.id = response.data.name;
-        dispatch({ type: actionTypes.PLACE_ORDER, payload })
-      } else {
-        dispatch({ type: actionTypes.PLACE_ORDER_FAIL })
-      }
-    }).catch(err => {
-      console.log(err, 'err');
-      dispatch({ type: actionTypes.PLACE_ORDER_FAIL });
-    });
+      .then((response) => {
+        if (response && response.data) {
+          payload.id = response.data.name;
+          dispatch({ type: actionTypes.PLACE_ORDER, payload })
+        } else {
+          dispatch({ type: actionTypes.PLACE_ORDER_FAIL })
+        }
+      }).catch(err => {
+        console.log(err, 'err');
+        dispatch({ type: actionTypes.PLACE_ORDER_FAIL });
+      });
   };
 }
 
@@ -59,21 +59,21 @@ const fetchOrders = () => {
   return (dispatch) => {
     dispatch({ type: actionTypes.FETCH_ORDERS_INIT })
     axiosBurger.get(`${getTokenEncodedUrl('/orders.json')}&orderBy="userId"&equalTo="${getUserId()}"`)
-    .then((response) => {
-      if (response && response.data) {
-        dispatch({
-          type: actionTypes.FETCH_ORDERS_SUCCESS,
-          payload: {
-            orders: Object.keys(response.data).map(orderId => { return {...response.data[orderId], id: orderId} })
-          }
-        })
-      } else {
-        dispatch({ type: actionTypes.FETCH_ORDERS_FAIL })
-      }
-    }).catch(err => {
-      console.log(err, 'err');
-      dispatch({ type: actionTypes.FETCH_ORDERS_FAIL });
-    });
+      .then((response) => {
+        if (response && response.data) {
+          dispatch({
+            type: actionTypes.FETCH_ORDERS_SUCCESS,
+            payload: {
+              orders: Object.keys(response.data).map(orderId => { return { ...response.data[orderId], id: orderId } })
+            }
+          })
+        } else {
+          dispatch({ type: actionTypes.FETCH_ORDERS_FAIL })
+        }
+      }).catch(err => {
+        console.log(err, 'err');
+        dispatch({ type: actionTypes.FETCH_ORDERS_FAIL });
+      });
   };
 }
 

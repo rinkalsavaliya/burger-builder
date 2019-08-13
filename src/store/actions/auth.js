@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import axios from 'axios';
-import { apiKey } from '../../axios-orders';
+import { apiKey } from '../../axios';
 import { getExpirationTime } from '../../lib/helper';
 
 const login = (payload, method) => {
@@ -12,20 +12,20 @@ const login = (payload, method) => {
       url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${apiKey}`;
     }
     axios.post(url, payload)
-    .then(response => {
-      dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response.data })
-      dispatch(checkAuthTimeout(response.data.expiresIn));
-    })
-    .catch(err => {
-      console.log(err);
-      try {
-        const error = err.response.data.error.message || '';
-        dispatch({ type: actionTypes.AUTH_FAIL, payload: { error } });
-      } catch (e) {
-        console.log(e);
-        dispatch({ type: actionTypes.AUTH_FAIL, payload: { error: 'something went wrong' } });
-      }
-    });
+      .then(response => {
+        dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response.data })
+        dispatch(checkAuthTimeout(response.data.expiresIn));
+      })
+      .catch(err => {
+        console.log(err);
+        try {
+          const error = err.response.data.error.message || '';
+          dispatch({ type: actionTypes.AUTH_FAIL, payload: { error } });
+        } catch (e) {
+          console.log(e);
+          dispatch({ type: actionTypes.AUTH_FAIL, payload: { error: 'something went wrong' } });
+        }
+      });
   };
 }
 

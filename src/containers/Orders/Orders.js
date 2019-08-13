@@ -1,10 +1,10 @@
 import React from 'react';
 import { Order, Loader } from '../../components';
-import axios from '../../axios-orders';
+import axios from '../../axios';
 import { connect } from 'react-redux';
 import mapDispatchToProps from '../../store/actions/orders';
 const mapStateToProps = state => {
-  return {...state.orders};
+  return { ...state.orders };
 };
 
 class Orders extends React.Component {
@@ -15,23 +15,23 @@ class Orders extends React.Component {
   }
   fetchOrders = () => {
     axios.get('/orders.json')
-    .then((response) => {
-      this.props.onFetchOrders();
-    }).catch(() => {
-      this.props.onFetchOrderFail();
-    })
+      .then((response) => {
+        this.props.onFetchOrders();
+      }).catch(() => {
+        this.props.onFetchOrderFail();
+      })
   }
   render() {
     if (this.props.loading) {
-      return <Loader/>
+      return <Loader />
     }
     if (!this.props.orders.length) {
-      return <p style={{textAlign: 'center'}}>No data available</p>;
+      return <p style={{ textAlign: 'center' }}>No data available</p>;
     }
     return (
       <div>
         {
-          this.props.orders.map(order => <Order key={order.id} order={order}/>)
+          this.props.orders.map(order => <Order key={order.id} order={order} />)
         }
       </div>
     );

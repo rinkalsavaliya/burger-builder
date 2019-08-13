@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Layout, withErrorHandler } from './hoc';
-import axios from './axios-orders';
+import axios from './axios';
 import { BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Loader } from './components';
@@ -13,19 +13,19 @@ const mapStateToProps = (state) => {
 const app = (props) => {
   let routes = (
     <Switch>
-      <Route exact path='/' component={AsyncBurgerBuilder}/>
-      <Route exact path='/auth' component={AsyncAuth}/>
-      <Route render={() => <h1 style={{textAlign:'center'}}>404 NOT FOUND</h1>}/>
+      <Route exact path='/' component={AsyncBurgerBuilder} />
+      <Route exact path='/auth' component={AsyncAuth} />
+      <Route render={() => <h1 style={{ textAlign: 'center' }}>404 NOT FOUND</h1>} />
     </Switch>
   );
   if (props.isAuthenticated) {
     routes = (
       <Switch>
-        <Route exact path='/' component={AsyncBurgerBuilder}/>
-        <Route path='/checkout' component={AsyncCheckout}/>
-        <Route exact path='/orders' component={AsyncOrders}/>
-        <Route exact path='/auth' component={AsyncAuth}/>
-        <Route render={() => <Redirect to='/'/>}/>
+        <Route exact path='/' component={AsyncBurgerBuilder} />
+        <Route path='/checkout' component={AsyncCheckout} />
+        <Route exact path='/orders' component={AsyncOrders} />
+        <Route exact path='/auth' component={AsyncAuth} />
+        <Route render={() => <Redirect to='/' />} />
       </Switch>
     );
   }
@@ -33,7 +33,7 @@ const app = (props) => {
     <BrowserRouter>
       <div>
         <Layout>
-          <Suspense fallback={<Loader/>}>{routes}</Suspense>
+          <Suspense fallback={<Loader />}>{routes}</Suspense>
         </Layout>
       </div>
     </BrowserRouter>
