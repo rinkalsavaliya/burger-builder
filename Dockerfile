@@ -1,21 +1,16 @@
-FROM node:dubnium
+# install dependencies
+FROM node:dubnium AS dependencies
 
-WORKDIR /burger-builder
+WORKDIR /app
 
-COPY package.json /burger-builder
+COPY package.json .
 RUN npm install
-
-WORKDIR /burger-builder/backend
-COPY backend/package.json /burger-builder/backend
-RUN npm install
-
-WORKDIR /burger-builder
-COPY . /burger-builder
+COPY . .
 RUN npm run build
-WORKDIR /burger-builder/backend
 
-EXPOSE 8080
-# build and run with the command :
-# docker build . -t burger-builder
-# docker run -d -p 3001:3001 --name burger-builder burger-builder
-CMD ["npm", "start"]
+FROM nginx:1.15.2-alpine
+COPY --from=dependencies /app/build /var/www
+COPY nginx.conf /etc/nginx/nginx.conf
+RUN ls
+EXPOSE 3000
+ENTRYPOINT ["nginx","-g","daemon off;"]
