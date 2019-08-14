@@ -1,18 +1,15 @@
 # install dependencies
 FROM node:dubnium AS dependencies
 
+ARG API_URL
+ENV REACT_APP_API_URL=$API_URL
+ARG API_KEY
+ENV REACT_APP_API_KEY=$API_KEY
+
 WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
-
-ARG API_URL
-ENV REACT_APP_API_URL=$API_URL
-
-ARG API_KEY
-ENV REACT_APP_API_KEY=$API_KEY
-
-RUN echo "$API_URL, $API_KEY"
 
 RUN npm run build
 
