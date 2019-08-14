@@ -10,4 +10,4 @@ instance.defaults.headers.get['xyz'] = 'xyz';
 instance.defaults.headers.post['jkl'] = 'jkl';
 
 export default instance;
-export const apiKey = '';
+export const apiKey = process.env.API_KEY || '';
