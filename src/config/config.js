@@ -2,7 +2,7 @@ const config = {
   apiUrl: process.env.API_URL || 'http://localhost:3001/api/v1'
 };
 if (process.env.NODE_ENV === 'production') {
-  config.apiUrl = '/api/v1';
+  // config.apiUrl = '/api/v1';
   window.console.log = () => { };
 }
 console.log(process.env, config);
