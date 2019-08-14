@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: 'https://burger-builder-39e38.firebaseio.com'
+  apiUrl: process.env.API_URL
 };
 if (process.env.NODE_ENV === 'production') {
   window.console.log = () => { };
